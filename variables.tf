@@ -75,8 +75,7 @@ variable "public_network_access_enabled" {
 }
 
 variable "network_rules" {
-  description = "(Optional) A network_rules block used only when \`public_network_access_enabled\` is false"
+  description = "(Optional) A network_rules block used only when public_network_access_enabled is false"
   type        = any
   default     = null
 }
-
