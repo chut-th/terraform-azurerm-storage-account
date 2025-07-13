@@ -75,15 +75,8 @@ variable "public_network_access_enabled" {
 }
 
 variable "network_rules" {
-  description = "(Optional) A network_rules block"
-  type = object({
-    default_action = string
-    bypass = string
-    ip_rules = list(string)
-    virtual_network_subnet_ids = list(string)
-    private_link_access = object({
-      endpoint_resource_id = string
-      endpoint_tenant_id = string
-    })
-  })
+  description = "(Optional) A network_rules block used only when \`public_network_access_enabled\` is false"
+  type        = any
+  default     = null
 }
+
