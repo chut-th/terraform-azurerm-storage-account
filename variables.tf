@@ -76,12 +76,41 @@ variable "public_network_access_enabled" {
 
 variable "default_to_oauth_authentication" {
   description = "Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
-  type = string
-  default = "false"
+  type        = string
+  default     = "false"
+}
+
+variable "is_hns_enabled" {
+  description = "Optional) Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2. Changing this forces a new resource to be created."
 }
 
 variable "network_rules" {
   description = "(Optional) A network_rules block used only when public_network_access_enabled is false"
-  type        = any
-  default     = null
+  type        = bool
+  default     = false
+}
+
+variable "storage_account_id" {
+  description = "(Optional) Specifies the ID of the storage account. Changing this forces a new resource to be created. However, it will be required when network_rules is true"
+  type        = string
+}
+
+variable "default_action" {
+  description = "(Optional) Specifies the default action of allow or deny when no other rules match. Valid options are Deny or Allow. However, it will be required when network_rules is true"
+  type        = string
+}
+
+variable "bypass" {
+  description = "(Optional) Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None. Defaults to ['AzureServices']."
+  type        = list(string)
+}
+
+variable "ip_rules" {
+  description = "(Optional) List of public IP or IP ranges in CIDR Format. Only IPv4 addresses are allowed. Private IP address ranges (as defined in RFC 1918) are not allowed."
+  type        = list(string)
+}
+
+variable "virtual_network_subnet_ids" {
+  description = "(Optional) A list of virtual network subnet ids to secure the storage account."
+  type        = list(string)
 }

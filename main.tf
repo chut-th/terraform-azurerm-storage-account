@@ -21,7 +21,17 @@ resource "azurerm_storage_account" "sta" {
   account_replication_type         = var.account_replication_type
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled # Optional, default: false
   shared_access_key_enabled        = var.shared_access_key_enabled        # Optional, default: true
-  public_network_access_enabled    = var.public_network_access_enabled    #Optional, default: true
-  default_to_oauth_authentication = var.default_to_oauth_authentication
+  public_network_access_enabled    = var.public_network_access_enabled    # Optional, default: true
+  default_to_oauth_authentication  = var.default_to_oauth_authentication  # Optional, default: false
+  is_hns_enabled                   = var.is_hns_enabled                   # Optional, default: false
+  network_rules                    = var.network_rules                    # Optional, default: false
 }
 
+resource "azurerm_storage_account_network_rules" "network_rules" {
+  count                      = var.network_rules ? 1 : 0
+  storage_account_id         = var.storage_account_id
+  default_action             = var.default_action
+  bypass                     = var.bypass # Optional, default: ['AzureServices'] 
+  ip_rules                   = var.ip_rules
+  virtual_network_subnet_ids = var.virtual_network_subnet_ids
+}
