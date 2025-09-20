@@ -74,6 +74,12 @@ variable "public_network_access_enabled" {
   default     = "true"
 }
 
+variable "default_to_oauth_authentication" {
+  description = "Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
+  type = string
+  default = "false"
+}
+
 variable "network_rules" {
   description = "(Optional) A network_rules block used only when public_network_access_enabled is false"
   type        = any
