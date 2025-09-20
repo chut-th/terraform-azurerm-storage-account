@@ -24,7 +24,6 @@ resource "azurerm_storage_account" "sta" {
   public_network_access_enabled    = var.public_network_access_enabled    # Optional, default: true
   default_to_oauth_authentication  = var.default_to_oauth_authentication  # Optional, default: false
   is_hns_enabled                   = var.is_hns_enabled                   # Optional, default: false
-  is_network_rules_enabled         = var.is_network_rules_enabled         # Optional, default: false
 }
 
 resource "azurerm_storage_account_network_rules" "nwr" {
