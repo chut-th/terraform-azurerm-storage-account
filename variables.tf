@@ -75,24 +75,19 @@ variable "public_network_access_enabled" {
 }
 
 variable "default_to_oauth_authentication" {
-  description = "Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
+  description = "(Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
   type        = string
   default     = "false"
 }
 
 variable "is_hns_enabled" {
-  description = "Optional) Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2. Changing this forces a new resource to be created."
+  description = "(Optional) Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2. Changing this forces a new resource to be created."
 }
 
-variable "network_rules" {
-  description = "(Optional) A network_rules block used only when public_network_access_enabled is false"
+variable "is_network_rules_enabled" {
+  description = "(Optional) This can be set to true if requirs network rules"
   type        = bool
   default     = false
-}
-
-variable "storage_account_id" {
-  description = "(Optional) Specifies the ID of the storage account. Changing this forces a new resource to be created. However, it will be required when network_rules is true"
-  type        = string
 }
 
 variable "default_action" {

@@ -24,12 +24,12 @@ resource "azurerm_storage_account" "sta" {
   public_network_access_enabled    = var.public_network_access_enabled    # Optional, default: true
   default_to_oauth_authentication  = var.default_to_oauth_authentication  # Optional, default: false
   is_hns_enabled                   = var.is_hns_enabled                   # Optional, default: false
-  network_rules                    = var.network_rules                    # Optional, default: false
+  is_network_rules_enabled         = var.is_network_rules_enabled         # Optional, default: false
 }
 
-resource "azurerm_storage_account_network_rules" "network_rules" {
-  count                      = var.network_rules ? 1 : 0
-  storage_account_id         = var.storage_account_id
+resource "azurerm_storage_account_network_rules" "nwr" {
+  count                      = var.is_network_rules_enabled ? 1 : 0
+  storage_account_id         = azurerm_storage_account.sta.id
   default_action             = var.default_action
   bypass                     = var.bypass # Optional, default: ['AzureServices'] 
   ip_rules                   = var.ip_rules
