@@ -60,10 +60,6 @@ variable "cross_tenant_replication_enabled" {
   description = "(Optional) Should cross Tenant replication be enabled? Defaults to false."
   type        = string
   default     = false
-  validation {
-    condition     = var.cross_tenant_replication_enabled == "true" && var.is_hns_enabled != true
-    error_message = "Cross-tenant replication and hierarchical namespace cannot be enabled simultaneously."
-  }
 }
 
 variable "shared_access_key_enabled" {
