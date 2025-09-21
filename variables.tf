@@ -1,22 +1,22 @@
 variable "csp" {
-  description = "The name of cloud service provider"
+  description = "The name of cloud service provider."
   type        = string
   default     = "az"
 }
 
 variable "service" {
-  description = "The name of the provissioned service"
+  description = "The name of the provissioned service."
   type        = string
   default     = "sta"
 }
 
 variable "company" {
-  description = "The company that own the service"
+  description = "The company that own the service."
   type        = string
 }
 
 variable "project" {
-  description = "The name of the project"
+  description = "The name of the project."
   type        = string
 }
 
@@ -26,7 +26,7 @@ variable "environment" {
 }
 
 variable "running_number" {
-  description = "The running number of the service"
+  description = "The running number of the service."
   type        = string
 }
 
@@ -41,7 +41,7 @@ variable "resource_group_name" {
 }
 
 variable "account_kind" {
-  description = "(Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Defaults to StorageV2"
+  description = "(Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Defaults to StorageV2."
   type        = string
   default     = "StorageV2"
 }
@@ -57,41 +57,62 @@ variable "account_replication_type" {
 }
 
 variable "cross_tenant_replication_enabled" {
-  description = "(Optional) Should cross Tenant replication be enabled? Defaults to false"
+  description = "(Optional) Should cross Tenant replication be enabled? Defaults to false."
   type        = string
   default     = false
+  validation {
+    condition     = var.cross_tenant_replication_enabled == "true" && var.is_hns_enabled != true
+    error_message = "Cross-tenant replication and hierarchical namespace cannot be enabled simultaneously."
+  }
 }
 
 variable "shared_access_key_enabled" {
-  description = "(Optional) Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). Defaults to true"
+  description = "(Optional) Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). Defaults to true."
   type        = string
   default     = "true"
 }
 
 variable "public_network_access_enabled" {
-  description = "(Optional) Whether the public network access is enabled? Defaults to true"
+  description = "(Optional) Whether the public network access is enabled? Defaults to true."
   type        = string
   default     = "true"
 }
 
 variable "default_to_oauth_authentication" {
-  description = "(Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
+  description = "(Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false."
   type        = string
   default     = "false"
 }
 
 variable "is_hns_enabled" {
   description = "(Optional) Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2. Changing this forces a new resource to be created."
+  type        = string
+}
+
+variable "is_customer_managed_key_enabled" {
+  description = "(Optional) This can be set to true if it requirs cmk. *This value is not default argument.*"
+  type        = bool
+  default     = false
+}
+
+variable "key_name" {
+  description = "(Required) The name of Key Vault Key."
+  type        = string
+}
+
+variable "key_vault_id" {
+  description = "(Optional) The ID of the Key Vault. Exactly one of managed_hsm_key_id, key_vault_id, or key_vault_uri must be specified."
+  type        = string
 }
 
 variable "is_network_rules_enabled" {
-  description = "(Optional) This can be set to true if requirs network rules"
+  description = "(Optional) This can be set to true if it requirs network rules. *This value is not default argument.*"
   type        = bool
   default     = false
 }
 
 variable "default_action" {
-  description = "(Optional) Specifies the default action of allow or deny when no other rules match. Valid options are Deny or Allow. However, it will be required when network_rules is true"
+  description = "(Optional) Specifies the default action of allow or deny when no other rules match. Valid options are Deny or Allow. However, it will be required when network_rules is true."
   type        = string
 }
 
@@ -108,4 +129,19 @@ variable "ip_rules" {
 variable "virtual_network_subnet_ids" {
   description = "(Optional) A list of virtual network subnet ids to secure the storage account."
   type        = list(string)
+}
+
+variable "infrastructure_encryption_enabled" {
+  description = "(Optional) Is infrastructure encryption enabled? Changing this forces a new resource to be created. Defaults to false."
+  type        = string
+  default     = "false"
+}
+
+variable "delete_retention_policy" {
+  description = "value"
+  type = object({
+    days                     = number # (Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days.
+    permanent_delete_enabled = bool   # (Optional) Indicates whether permanent deletion of the soft deleted blob versions and snapshots is allowed. Defaults to false.
+  })
+  default = null
 }
