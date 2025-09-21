@@ -98,11 +98,13 @@ variable "is_customer_managed_key_enabled" {
 variable "key_name" {
   description = "(Required) The name of Key Vault Key."
   type        = string
+  default     = null
 }
 
 variable "key_vault_id" {
   description = "(Optional) The ID of the Key Vault. Exactly one of managed_hsm_key_id, key_vault_id, or key_vault_uri must be specified."
   type        = string
+  default     = null
 }
 
 variable "is_network_rules_enabled" {
