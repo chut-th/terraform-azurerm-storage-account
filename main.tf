@@ -25,7 +25,6 @@ resource "azurerm_storage_account" "sta" {
   default_to_oauth_authentication   = var.default_to_oauth_authentication   # Optional, default: false
   is_hns_enabled                    = var.is_hns_enabled                    # Optional, default: false
   infrastructure_encryption_enabled = var.infrastructure_encryption_enabled # Optional, default: false
-  delete_retention_policy           = var.delete_retention_policy           # Optional
 }
 
 resource "azurerm_storage_account_customer_managed_key" "cmk" {

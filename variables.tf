@@ -134,12 +134,3 @@ variable "infrastructure_encryption_enabled" {
   type        = string
   default     = "false"
 }
-
-variable "delete_retention_policy" {
-  description = "value"
-  type = object({
-    days                     = number # (Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days.
-    permanent_delete_enabled = bool   # (Optional) Indicates whether permanent deletion of the soft deleted blob versions and snapshots is allowed. Defaults to false.
-  })
-  default = null
-}
